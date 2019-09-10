@@ -1,0 +1,7 @@
+---
+# tasks file for step_01
+
+- name: "Run 'apt-get update' if the last one is more than 3600 seconds ago"
+  apt:
+   update_cache: yes
+   cache_valid_time: 3600
