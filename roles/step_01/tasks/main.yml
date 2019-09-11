@@ -1,7 +1,12 @@
 ---
 # tasks file for step_01
 
-- name: "Run 'apt-get update' if the last one is more than 3600 seconds ago"
+- name: "Aggiornare i pacchetti APT se è passata più di 1 ora"
   apt:
    update_cache: yes
    cache_valid_time: 3600
+
+- name: "Installare i pacchetti necessari a MediaWiki"
+  apt:
+   name: ["php", "php-apcu", "php-intl", "php-mbstring", "php-xml", "php-mysql", "mariadb-server", "apache2"]
+   state: present

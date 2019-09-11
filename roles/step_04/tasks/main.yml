@@ -1,0 +1,26 @@
+---
+# tasks for step_04
+- name: "Installazione pacchetti"
+  apt:
+   name: "python3-mysqldb"
+   state: present
+   update_cache: yes
+
+- name: "Generazione del database di Mediawiki 'wikidb'"
+  mysql_db:
+   name: "wikidb"
+   state: present
+
+- name: "Creazione dell'utente 'wikiuser' usato per accedere a 'wikidb'"
+  mysql_user:
+   name: "wikiuser"
+   password: "{{ mw_wiki_db_wikiuser_pw }}"
+   priv: 'wikidb.*:ALL'
+   state: present
+
+- name: "Installa e Configura MediaWiki"
+  command: "php install.php --quiet --dbuser=wikiuser --dbpass={{ mw_wiki_db_wikiuser_pw }} --dbname=wikidb --installdbuser=wikiuser --installdbpass={{ mw_wiki_db_wikiuser_pw }} --server='https://{{ fqdn }}' --scriptpath='/w' --lang='it' --pass='{{ mw_wikiadmin_pw }}' --with-extensions 'WSGARR19 - Wiki' 'wikiadmin' > /dev/null"
+  args:
+   chdir: "/var/www/html/{{ fqdn }}/w/maintenance"
+   creates: "/var/www/html/{{ fqdn }}/w/LocalSettings.php"
+

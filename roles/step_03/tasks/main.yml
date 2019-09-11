@@ -1,0 +1,19 @@
+---
+# tasks for step_03
+
+- name: "Download del pacchetto Mediawiki"
+  get_url:
+    url: "https://releases.wikimedia.org/mediawiki/1.33/mediawiki-1.33.0.tar.gz"
+    dest: "/usr/local/src/mediawiki-1.33.0.tar.gz"
+
+- name: "Estrazione"
+  unarchive:
+   src: "/usr/local/src/mediawiki-1.33.0.tar.gz"
+   dest: "/usr/local/src"
+   remote_src: yes
+
+- name: "Creazione di un collegamento simbolico per Apache2"
+  file:
+   src: "/usr/local/src/mediawiki-1.33.0"
+   dest: "/var/www/html/{{ fqdn }}/w"
+   state: link

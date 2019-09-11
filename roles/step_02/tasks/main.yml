@@ -1,0 +1,33 @@
+---
+# tasks file for step_01
+
+- name: "Creazione del file di configurazione"
+  template:
+   src: "apache2-wiki.conf.j2"
+   dest: "/etc/apache2/sites-available/{{ fqdn }}.conf"
+
+- name: "Creazione della cartella stabilita per la DocumentRoot"
+  file: 
+    path: "/var/www/html/{{ fqdn }}"
+    state: directory
+    mode: '0755'
+
+- name: "Attivazione dei moduli necessari"
+  apache2_module:
+   name: "{{ item }}"
+   state: present
+  with_items:
+   - alias
+   - ssl
+   - include
+   - negotiation
+   - headers
+
+- name: "Disattivazione dei siti predefiniti"
+  command: "a2dissite 000-default.conf"
+
+- name: "Attivazione della nuova configurazione"
+  command: "a2ensite {{ fqdn }}.conf"
+
+- name: "Riavvio del servizio 'apache2'"
+  command: "systemctl restart apache2.service"
