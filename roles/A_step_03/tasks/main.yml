@@ -1,5 +1,5 @@
 ---
-# tasks for step_03
+# tasks for A_step_03
 
 - name: "Download del pacchetto Mediawiki"
   get_url:

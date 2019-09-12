@@ -1,8 +1,0 @@
----
-# Variabili di configurazione
-
-fqdn: "<INSERIRE QUI IL FQDN DEL SERVER>"
-mw_wiki_db_wikiuser_pw: "<INSERIRE UNA PASSWORD PER L'UTENTE 'wikiuser' DEL DB DI MEDIAWIKI>"
-mw_wikiadmin_pw: "<INSERIRE UNA PASSWORD PER 'wikiadmin' L'AMMINISTRATORE DEL WIKI>"
-mw_new_user: "<INSERIRE IL PROPRIO USERNAME>"
-mw_new_user_pw: "<INSERIRE LA PROPRIA PASSWORD>"

@@ -1,0 +1,9 @@
+---
+# Variabili di configurazione
+
+# Variabili utili per la parte A - Installazione e Configurazione di Mediawiki
+fqdn: "<INSERIRE QUI IL FQDN DEL SERVER>"
+mw_wikiuser_pw: "<INSERIRE UNA PASSWORD PER L'UTENTE 'wikiuser' DEL DB DI MEDIAWIKI>"
+mw_wikiadmin_pw: "<INSERIRE UNA PASSWORD PER 'wikiadmin' L'AMMINISTRATORE DEL WIKI>"
+
+# Variabili utili per la parte D - Federare un Mediawiki

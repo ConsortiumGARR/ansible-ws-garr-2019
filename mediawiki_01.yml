@@ -5,7 +5,7 @@
   become_method: sudo
   remote_user: debian
   roles:
-   - step_01
-   - step_02
-   - step_03
-   - step_04
+   - A_step_01
+   - A_step_02
+   - A_step_03
+   - A_step_04

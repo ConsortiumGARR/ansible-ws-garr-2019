@@ -1,5 +1,5 @@
 ---
-# tasks file for step_01
+# tasks file for A_step_01
 
 - name: "Aggiornare i pacchetti APT se è passata più di 1 ora"
   apt:
