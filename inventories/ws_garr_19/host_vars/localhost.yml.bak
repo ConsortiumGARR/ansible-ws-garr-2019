@@ -1,9 +1,0 @@
----
-# Variabili di configurazione
-
-# Variabili utili per la parte A - Installazione e Configurazione di Mediawiki
-fqdn: "sp3-deb.aai-test.garr.it"
-mw_wikiuser_pw: "ciaowikiuser"
-mw_wikiadmin_pw: "ciaowikiadmin"
-
-# Variabili utili per la parte D - Federare un Mediawiki
