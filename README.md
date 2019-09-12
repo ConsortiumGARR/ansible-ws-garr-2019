@@ -25,6 +25,9 @@ Installare Ansible sulla propria macchina virtuale:
 
 1. Sostituire i valori compresi nelle parentesi angolari `<`,`>` nel file `/opt/ansible-ws-garr-2019/inventories/mediawiki_01/host_vars/localhost.yml`
 
-2. Aggiungere/Rimuovere il commento agli steps (`step_01`,`step_02`,`step_03`,`step_04`) nel file `/opt/ansible-ws-garr-2019/mediawiki_01.yml` per allinearsi.
+2. Aggiungere/Rimuovere il commento agli steps come segue nel file `/opt/ansible-ws-garr-2019/mediawiki_01.yml`:
+   * `A_step_01`,`A_step_02`,`A_step_03`,`A_step_04` (per allinearsi sulla primo modulo del corso)
 
-3. Eseguire `cd /opt/ansible-ws-garr-2019 ; ansible-playbook site.yml -i /opt/ansible-ws-garr-2019/inventories/mediawiki_01/mediawiki_01.ini` per eseguire le ricette e configurare la propria macchina.
+3. Modificare `/opt/ansible-ws-garr-2019/site.yml` per abilitare/disabilitare i moduli verso cui allinearsi.
+
+4. Eseguire `cd /opt/ansible-ws-garr-2019 ; ansible-playbook site.yml -i /opt/ansible-ws-garr-2019/inventories/ws_garr_19/wsgarr19.ini` per eseguire le ricette e configurare la propria macchina.
