@@ -1,0 +1,11 @@
+---
+# file: mediawiki_01.yml
+- hosts: Debian_MediaWiki
+  become: yes
+  become_method: sudo
+  remote_user: debian
+  roles:
+   - D_step_01
+     #   - D_step_02
+     #   - D_step_03
+     #   - D_step_04
