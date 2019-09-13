@@ -15,5 +15,5 @@
 - name: "Creazione di un collegamento simbolico per Apache2"
   file:
    src: "/usr/local/src/mediawiki-1.33.0"
-   dest: "/var/www/html/{{ fqdn }}/w"
+   dest: "/var/www/html/{{ fqdn }}"
    state: link

@@ -20,8 +20,8 @@
    state: present
 
 - name: "Installa e Configura MediaWiki"
-  command: "php install.php --quiet --dbuser=wikiuser --dbpass={{ mw_wikiuser_pw }} --dbname=wikidb --installdbuser=wikiuser --installdbpass={{ mw_wikiuser_pw }} --server='https://{{ fqdn }}' --scriptpath='/w' --lang='it' --pass='{{ mw_wikiadmin_pw }}' --with-extensions 'WSGARR19 - Wiki' 'wikiadmin' > /dev/null"
+  command: "php install.php --quiet --dbuser=wikiuser --dbpass={{ mw_wikiuser_pw }} --dbname=wikidb --installdbuser=wikiuser --installdbpass={{ mw_wikiuser_pw }} --server='https://{{ fqdn }}' --scriptpath='' --lang='it' --pass='{{ mw_wikiadmin_pw }}' --with-extensions 'WSGARR19 - Wiki' 'wikiadmin' > /dev/null"
   args:
-   chdir: "/var/www/html/{{ fqdn }}/w/maintenance"
-   creates: "/var/www/html/{{ fqdn }}/w/LocalSettings.php"
+   chdir: "/var/www/html/{{ fqdn }}/maintenance"
+   creates: "/var/www/html/{{ fqdn }}/LocalSettings.php"
 

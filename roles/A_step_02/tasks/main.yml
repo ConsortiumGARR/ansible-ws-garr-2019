@@ -6,11 +6,11 @@
    src: "apache2-wiki.conf.j2"
    dest: "/etc/apache2/sites-available/{{ fqdn }}.conf"
 
-- name: "Creazione della cartella stabilita per la DocumentRoot"
-  file: 
-    path: "/var/www/html/{{ fqdn }}"
-    state: directory
-    mode: '0755'
+   #- name: "Creazione della cartella stabilita per la DocumentRoot"
+   #  file: 
+   #    path: "/var/www/html/{{ fqdn }}"
+   #    state: directory
+   #    mode: '0755'
 
 - name: "Attivazione dei moduli necessari"
   apache2_module:
