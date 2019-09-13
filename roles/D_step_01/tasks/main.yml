@@ -18,20 +18,20 @@
 - name: "Scarica l'estensione PluggableAuth per Mediawiki"
   get_url:
    url: "https://extdist.wmflabs.org/dist/extensions/PluggableAuth-REL1_33-a69f626.tar.gz"
-   dest: "/var/www/html/{{ fqdn }}/w/extensions/PluggableAuth.tar.gz"
+   dest: "/var/www/html/{{ fqdn }}/extensions/PluggableAuth.tar.gz"
 
-- name: "Estrai l'estensione PluggableAuth in '/var/www/html/{{ fqdn }}/w/extensions' location"
+- name: "Estrai l'estensione PluggableAuth in '/var/www/html/{{ fqdn }}/extensions' location"
   unarchive:
-   src: "/var/www/html/{{ fqdn }}/w/extensions/PluggableAuth.tar.gz"
-   dest: "/var/www/html/{{ fqdn }}/w/extensions"
-   creates: "/var/www/html/{{ fqdn }}/w/extensions/PluggableAuth"
+   src: "/var/www/html/{{ fqdn }}/extensions/PluggableAuth.tar.gz"
+   dest: "/var/www/html/{{ fqdn }}/extensions"
+   creates: "/var/www/html/{{ fqdn }}/extensions/PluggableAuth"
    owner: "root"
    group: "root"
 
 - name: "Abilita il PluggableAuth sul LocalSettings.php"
   blockinfile:
-   path: "/var/www/html/{{ fqdn }}/w/LocalSettings.php"
-   marker: "# {mark} CONF PLUGGABLEAUTH EXTENSION BY ANSIBLE"
+   path: "/var/www/html/{{ fqdn }}/LocalSettings.php"
+   marker: "# {mark} ENABLE & CONFIGURE PLUGGABLEAUTH EXT BY ANSIBLE"
    block: |
     wfLoadExtension( 'PluggableAuth' );
 
@@ -42,37 +42,37 @@
 
 - name: "Rimuovi il pacchetto PluggableAuth.tar.gz non più utilizzato"
   file:
-   path: "/var/www/html/{{ fqdn }}/w/extensions/PluggableAuth.tar.gz"
+   path: "/var/www/html/{{ fqdn }}/extensions/PluggableAuth.tar.gz"
    state: absent
 
 - name: "Scarica l'estensione Shibboleth per Mediawiki"
   get_url:
    url: "https://github.com/NIIF/mediawiki-extensions-Shibboleth/archive/v1.0.0.tar.gz"
-   dest: "/var/www/html/{{ fqdn }}/w/extensions/Shibboleth.tar.gz"
+   dest: "/var/www/html/{{ fqdn }}/extensions/Shibboleth.tar.gz"
 
-- name: "Estrai l'estensione Shibboleth in '/var/www/html/{{ fqdn }}/w/extensions' location"
+- name: "Estrai l'estensione Shibboleth in '/var/www/html/{{ fqdn }}/extensions' location"
   unarchive:
-   src: "/var/www/html/{{ fqdn }}/w/extensions/Shibboleth.tar.gz"
-   dest: "/var/www/html/{{ fqdn }}/w/extensions/"
-   creates: "/var/www/html/{{ fqdn }}/w/extensions/Shibboleth"
+   src: "/var/www/html/{{ fqdn }}/extensions/Shibboleth.tar.gz"
+   dest: "/var/www/html/{{ fqdn }}/extensions/"
+   creates: "/var/www/html/{{ fqdn }}/extensions/Shibboleth"
    owner: "root"
    group: "root"
 
 - name: "Rinomina la cartella estratta per l'estensione Shibboleth di Mediawiki"
   command: "mv mediawiki-extensions-Shibboleth-1.0.0 Shibboleth"
   args:
-    chdir: "/var/www/html/{{ fqdn }}/w/extensions"
-    creates: "/var/www/html/{{ fqdn }}/w/extensions/Shibboleth"
+    chdir: "/var/www/html/{{ fqdn }}/extensions"
+    creates: "/var/www/html/{{ fqdn }}/extensions/Shibboleth"
 
 - name: "Abilita Shibboleth sul LocalSettings.php"
   blockinfile:
-   path: "/var/www/html/{{ fqdn }}/w/LocalSettings.php"
-   marker: "# {mark} CONF SHIBBOLETH EXTENSION BY ANSIBLE"
+   path: "/var/www/html/{{ fqdn }}/LocalSettings.php"
+   marker: "# {mark} ENABLE SHIBBOLETH EXT BY ANSIBLE"
    block: |
     wfLoadExtension( 'Shibboleth' );
    backup: yes
 
 - name: "Rimuovi il pacchetto Shibboleth.tar.gz non più utilizzato"
   file:
-   path: "/var/www/html/{{ fqdn }}/w/extensions/Shibboleth.tar.gz"
+   path: "/var/www/html/{{ fqdn }}/extensions/Shibboleth.tar.gz"
    state: absent

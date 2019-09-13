@@ -1,0 +1,14 @@
+---
+# tasks for D_step_02
+
+- name: "Abilita il PluggableAuth sul LocalSettings.php"
+  blockinfile:
+   path: "/var/www/html/{{ fqdn }}/LocalSettings.php"
+   marker: "# {mark} CONFIGURE SHIBBOLETH EXT EXT BY ANSIBLE"
+   block: |
+    $wgShibboleth_Username = 'eppn';
+    $wgShibboleth_Email = 'mail';
+    $wgShibboleth_DisplayName = array("givenName","sn");
+    $wgShibboleth_Logout_Base_Url = "/";
+    $wgShibboleth_Logout_Target_Url = '/index.php/Pagina_principale';
+   backup: yes
