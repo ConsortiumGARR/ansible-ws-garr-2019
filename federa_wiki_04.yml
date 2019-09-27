@@ -7,5 +7,4 @@
   roles:
    - D_step_01
    - D_step_02
-     #   - D_step_03
-     #   - D_step_04
+   - D_step_03

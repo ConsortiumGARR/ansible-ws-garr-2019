@@ -28,6 +28,11 @@
    owner: "root"
    group: "root"
 
+- name: "Rimuovi il pacchetto PluggableAuth.tar.gz non più utilizzato"
+  file:
+   path: "/var/www/html/{{ fqdn }}/extensions/PluggableAuth.tar.gz"
+   state: absent
+
 - name: "Abilita il PluggableAuth sul LocalSettings.php"
   blockinfile:
    path: "/var/www/html/{{ fqdn }}/LocalSettings.php"
@@ -40,14 +45,9 @@
     $wgPluggableAuth_ButtonLabel = "Login con IDEM";
    backup: yes
 
-- name: "Rimuovi il pacchetto PluggableAuth.tar.gz non più utilizzato"
-  file:
-   path: "/var/www/html/{{ fqdn }}/extensions/PluggableAuth.tar.gz"
-   state: absent
-
 - name: "Scarica l'estensione Shibboleth per Mediawiki"
   get_url:
-   url: "https://github.com/NIIF/mediawiki-extensions-Shibboleth/archive/v1.0.0.tar.gz"
+   url: "https://github.com/NIIF/mediawiki-extensions-Shibboleth/archive/v1.1.1.tar.gz"
    dest: "/var/www/html/{{ fqdn }}/extensions/Shibboleth.tar.gz"
 
 - name: "Estrai l'estensione Shibboleth in '/var/www/html/{{ fqdn }}/extensions' location"
@@ -58,8 +58,13 @@
    owner: "root"
    group: "root"
 
+- name: "Rimuovi il pacchetto Shibboleth.tar.gz non più utilizzato"
+  file:
+   path: "/var/www/html/{{ fqdn }}/extensions/Shibboleth.tar.gz"
+   state: absent
+
 - name: "Rinomina la cartella estratta per l'estensione Shibboleth di Mediawiki"
-  command: "mv mediawiki-extensions-Shibboleth-1.0.0 Shibboleth"
+  command: "mv mediawiki-extensions-Shibboleth-1.1.1 Shibboleth"
   args:
     chdir: "/var/www/html/{{ fqdn }}/extensions"
     creates: "/var/www/html/{{ fqdn }}/extensions/Shibboleth"
@@ -71,8 +76,3 @@
    block: |
     wfLoadExtension( 'Shibboleth' );
    backup: yes
-
-- name: "Rimuovi il pacchetto Shibboleth.tar.gz non più utilizzato"
-  file:
-   path: "/var/www/html/{{ fqdn }}/extensions/Shibboleth.tar.gz"
-   state: absent

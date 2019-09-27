@@ -1,0 +1,23 @@
+---
+# tasks for D_step_03
+
+- name: "Abilitare il riconoscimento dell'attributo 'eduPersonEntitlement' per il SP"
+  copy:
+   src: "attribute-map-D_step_03.xml"
+   dest: "/etc/shibboleth/attribute-map.xml"
+
+- name: "Ricaricare il demone 'shibd' per abilitare le modifiche eseguite"
+  command: systemctl restart shibd.service
+
+- name: "Configurare il mapping dei gruppi 'sysop' e 'bureaucrat' di Mediawiki su attributi saml"
+  blockinfile:
+   path: "/var/www/html/{{ fqdn }}/LocalSettings.php"
+   marker: "# {mark} CONFIGURE GROUPS BY ANSIBLE"
+   block: |
+    $wgShibboleth_GroupMap = [ 
+       'attr_name' => 'entitlement',
+       'sysop' => 'urn:mace:dir:aai-test.garr.it:mw:sysop',
+       'bureaucrat' => 'urn:mace:dir:aai-test.garr.it:mw:bureaucrat'
+    ];
+
+

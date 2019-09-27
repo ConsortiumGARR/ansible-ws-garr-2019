@@ -6,6 +6,6 @@
   remote_user: debian
   roles:
    - A_step_01
-   - A_step_02
-   - A_step_03
-   - A_step_04
+     #   - A_step_02
+     #   - A_step_03
+     #- A_step_04

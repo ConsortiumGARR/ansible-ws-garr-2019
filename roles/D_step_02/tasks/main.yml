@@ -1,14 +1,42 @@
 ---
 # tasks for D_step_02
 
-- name: "Abilita il PluggableAuth sul LocalSettings.php"
+- name: "Configurare Apache per richiedere la login con Shibboleth"
+  blockinfile:
+   path: "/etc/apache2/sites-available/{{ fqdn}}.conf"
+   marker: "     # {mark} CONFIGURE PLUGGABLEAUTH FOR SHIBBOLETH"
+   insertbefore: "</VirtualHost>"
+   block: |1
+         <Location /index.php/*:PluggableAuthLogin>
+            AuthType shibboleth
+            ShibRequestSetting applicationId default
+            ShibRequestSetting requireSession true
+            Require valid-user
+         </Location>
+
+- name: "Ricaricare Apache per applicare le modifiche"
+  command: "systemctl reload apache2.service"
+
+- name: "Configurare le variabili necessarie all'autenticazione Shibboleth per Mediawiki"
   blockinfile:
    path: "/var/www/html/{{ fqdn }}/LocalSettings.php"
-   marker: "# {mark} CONFIGURE SHIBBOLETH EXT EXT BY ANSIBLE"
+   marker: "# {mark} CONFIGURE AUTHN SHIBBOLETH EXT BY ANSIBLE"
    block: |
     $wgShibboleth_Username = 'eppn';
     $wgShibboleth_Email = 'mail';
-    $wgShibboleth_DisplayName = array("givenName","sn");
-    $wgShibboleth_Logout_Base_Url = "/";
+    $wgShibboleth_DisplayName = 'displayName';
+    $wgShibboleth_Logout_Base_Url = 'https://{{ fqdn }}';
     $wgShibboleth_Logout_Target_Url = '/index.php/Pagina_principale';
-   backup: yes
+
+- name: "Rimuovere la configurazione dei gruppi se presente"
+  blockinfile:
+   path: "/var/www/html/{{ fqdn }}/LocalSettings.php"
+   marker: "# {mark} CONFIGURE GROUPS BY ANSIBLE"
+   block: |
+    $wgShibboleth_GroupMap = [ 
+       'attr_name' => 'entitlement',
+       'sysop' => 'urn:mace:dir:aai-test.garr.it:mw:sysop',
+       'bureaucrat' => 'urn:mace:dir:aai-test.garr.it:mw:bureaucrat'
+    ];
+   state: absent
+
