@@ -7,7 +7,7 @@ Questo repository contiene ricette Ansible utili al conseguimento del Corso per 
 Installare Ansible sulla propria macchina virtuale:
 
 1. Accedere alla propria VM con l'username e la password dati:
-   * `ssh debian@sp-<NUM>.aai-test.garr.it`
+   * `ssh root@sp-<NUM>.aai-test.garr.it`
 
 2. Installare i pacchetti necessari all'esecuzione delle ricette Ansible:
    * `sudo apt-get install --yes vim git python3-dev python3-pip python3-setuptools build-essential bash-completion --no-install-recommends`
