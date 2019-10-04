@@ -12,14 +12,16 @@ Installare Ansible sulla propria macchina virtuale:
 2. Installare i pacchetti necessari all'esecuzione delle ricette Ansible:
    * `sudo apt-get install --yes vim git python3-dev python3-pip python3-setuptools build-essential bash-completion --no-install-recommends`
 
-4. Abilitare il completamento dei comandi nella Bash shell:
+3. Abilitare il completamento dei comandi nella Bash shell:
    * `sudo printf "\nif [ -f /etc/bash_completion ]; then\n . /etc/bash_completion\nfi" >> /etc/profile`
    
-5. Installare Ansible su Python 3:
+4. Installare Ansible su Python 3:
    * `sudo pip3 install --upgrade pip setuptools ansible`
    
-6. Scaricare il repository GIT delle ricette:
+5. Scaricare il repository GIT delle ricette:
    * `sudo git clone https://github.com/ConsortiumGARR/ansible-ws-garr-2019.git /opt/ansible-ws-garr-2019`
+
+6. Importare il certificato della CA "[wsgarr-ca.crt](https://github.com/ConsortiumGARR/ansible-ws-garr-2019/blob/master/wsgarr-ca.crt)" tra i certificati delle Autorità permesse dal browser. Vedere i filmati di configurazione per [Google Chrome](https://github.com/ConsortiumGARR/ansible-ws-garr-2019/blob/master/Aggiungere-CA-a-Chrome.mp4) e [Mozilla FireFox](https://github.com/ConsortiumGARR/ansible-ws-garr-2019/blob/master/Aggiungere-CA-a-FireFox.mp4) (da scaricare sul PC)
 
 ## Allineamento ai Moduli del Corso
 
