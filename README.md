@@ -21,13 +21,17 @@ Installare Ansible sulla propria macchina virtuale:
 6. Scaricare il repository GIT delle ricette:
    * `sudo git clone https://github.com/ConsortiumGARR/ansible-ws-garr-2019.git /opt/ansible-ws-garr-2019`
 
-## Configurare Ansible
+## Allineamento ai Moduli del Corso
 
 1. Sostituire i valori compresi nelle parentesi angolari `<`,`>` nel file `/opt/ansible-ws-garr-2019/inventories/mediawiki_01/host_vars/localhost.yml`
 
 2. Aggiungere/Rimuovere il commento agli steps come segue nel file `/opt/ansible-ws-garr-2019/mediawiki_01.yml`:
-   * `A_step_01`,`A_step_02`,`A_step_03`,`A_step_04` (per allinearsi sulla primo modulo del corso)
+   * `A_step_01`,`A_step_02`,`A_step_03`,`A_step_04` (per allinearsi sulla Modulo 1 del corso)
 
-3. Modificare `/opt/ansible-ws-garr-2019/site.yml` per abilitare/disabilitare i moduli verso cui allinearsi.
+3. Aggiungere/Rimuovere il commento agli steps come segue nel file `/opt/ansible-ws-garr-2019/federa_wiki_04.yml`:
+   * `D_step_01`,`D_step_02`,`D_step_03` (per allinearsi sulla Modulo 4 del corso)
 
 4. Eseguire `cd /opt/ansible-ws-garr-2019 ; ansible-playbook site.yml -i /opt/ansible-ws-garr-2019/inventories/ws_garr_19/wsgarr19.ini` per eseguire le ricette e configurare la propria macchina.
+
+
+N.B.: E' possibile modificare `/opt/ansible-ws-garr-2019/site.yml` per decidere quali moduli abilitare/disabilitare per allinearsi.
