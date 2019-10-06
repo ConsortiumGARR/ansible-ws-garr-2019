@@ -1,0 +1,99 @@
+---
+
+- name: "Installa Shibboleth Service Provider"
+  apt:
+   name: "libapache2-mod-shib"
+   state: present
+
+- name: "Genera chiave di signing per Shibboleth SP"
+  command: "/usr/sbin/shib-keygen -n sp-signing -e {{ fqdn }}"
+  args:
+    chdir: /etc/shibboleth
+    creates: /etc/shibboleth/sp-signing-key.pem
+
+- name: "Genera chiave di encrypt per Shibboleth SP"
+  command: "/usr/sbin/shib-keygen -n sp-encrypt -e {{ fqdn }}"
+  args:
+    chdir: /etc/shibboleth
+    creates: /etc/shibboleth/sp-encrypt-key.pem
+
+- name: "Configura Shibboleth SP"
+  template:
+    src: shibboleth2.xml.j2
+    dest: /etc/shibboleth/shibboleth2.xml
+    owner: root
+    group: root
+    mode: 0644
+
+- name: "Scarica i metadata del IdP WSGARR19" 
+  get_url:
+    url: https://idp-wsgarr19.aai-test.garr.it/idp/shibboleth
+    dest: /etc/shibboleth/idp-wsgarr19.xml
+
+  
+- name: "Scarica il certificato della Federazione IDEM" 
+  get_url:
+    url: https://md.idem.garr.it/certs/idem-signer-20220121.pem 
+    dest: /etc/shibboleth/idem-sign-cert.pem
+
+- name: "Configura il VirtualHost per proteggere la Location /docs"
+  template:
+     src: "sp-NUM.aai-test.garr.it.conf.j2"
+     dest: "/etc/apache2/sites-available/{{ fqdn }}.conf"
+     owner: root
+     group: root
+
+- name: "Scarica Shibboleth EDS"
+  get_url:
+   url: https://shibboleth.net/downloads/embedded-discovery-service/1.2.2/shibboleth-embedded-ds-1.2.2.tar.gz
+   dest: /usr/local/src/shibboleth-embedded-ds-1.2.2.tar.gz
+
+- name: "Estrai Shibboleth EDS"
+  unarchive:
+   src: /usr/local/src/shibboleth-embedded-ds-1.2.2.tar.gz
+   dest: /usr/local/src/shibboleth-embedded-ds-1.2.2
+   creates: /usr/local/src/shibboleth-embedded-ds-1.2.2
+   owner: "root"
+   group: "root"
+
+- name: "Installa Shibboleth EDS"
+  command: "make install"
+  args:
+    chdir: /usr/local/src/shibboleth-embedded-ds-1.2.2
+    creates: /etc/shibbolethd-ds
+ 
+- name: "Configura Shibboleth EDS" 
+  template:
+    src: idpselect_config.js.j2
+    dest: /etc/shibboleth-ds/idpselect_config.js
+    owner: root
+    group: root
+
+- name: "Copia configurazione Shibboleth EDS in apache2"
+  command: cp /etc/shibboleth-ds/shibboleth-ds.conf /etc/apache2/conf-available/shibboleth-ds.conf
+  args:
+    chdir: /root
+    creates: /etc/apache2/conf-available/shibboleth-ds.conf
+
+- name: "Abilita configurazione Shibboleth EDS in apache2"
+  command: a2enconf shibboleth-ds
+  args:
+    chdir: /root
+    creates: /etc/apache2/conf-enabled/shibboleth-ds.conf
+
+- name: "Riavvia Shibd"
+  service:
+    name: shibd
+    state: restarted
+
+- name: "Abilita mod_shib"
+  apache2_module:
+    name: shib
+    identifier: mod_shib
+    state: present
+
+- name: "Riavvia Apache2"
+  service:
+    name: apache2
+    state: restarted
+
