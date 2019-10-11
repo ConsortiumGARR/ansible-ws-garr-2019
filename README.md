@@ -1,6 +1,6 @@
 # Accesso federato per MediaWiki con Shibboleth Service Provider
 
-Questo repository contiene il materiale didattico e le ricette ansible per il corso "Accesso federato per MediaWiki con Shibboleth Service Provider" tenuto al Workshop GARR 2019, vedi https://learning.garr.it/course/view.php?id=87
+Questo repository contiene il materiale didattico (vedi `slides`) e le ricette ansible per il corso **Accesso federato per MediaWiki con Shibboleth Service Provider** tenuto al Workshop GARR 2019, vedi https://learning.garr.it/course/view.php?id=87
 
 
 ## Requisiti
