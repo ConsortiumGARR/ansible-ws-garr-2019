@@ -1,6 +1,7 @@
-# ansible-ws-garr-2019
+# Accesso federato per MediaWiki con Shibboleth Service Provider
 
-Questo repository contiene ricette Ansible utili al conseguimento del Corso per i Service Provider tenuto al Workshop GARR 2019 il 7 Ottobre 2019
+Questo repository contiene il materiale didattico e le ricette ansible per il corso "Accesso federato per MediaWiki con Shibboleth Service Provider" tenuto al Workshop GARR 2019, vedi https://learning.garr.it/course/view.php?id=87
+
 
 ## Requisiti
 
