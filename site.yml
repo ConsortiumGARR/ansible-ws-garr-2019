@@ -4,5 +4,8 @@
 # Modulo 1
 - import_playbook: mediawiki_01.yml
 
+# Modulo 3
+- import_playbook: shibsp_03.yml
+
 # Modulo 4
 - import_playbook: federa_wiki_04.yml
